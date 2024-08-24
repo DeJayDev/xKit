@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
@@ -30,13 +31,24 @@ public final class XKit extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onDeath(PlayerDeathEvent e) {
-        e.getDrops().clear(); // force the player not to drop anything
+    public void onDeath(PlayerDeathEvent event) {
+        event.getDrops().clear(); // force the player not to drop anything
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        player.getInventory().clear();
+        giveItems(player);
     }
 
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
+        giveItems(player);
+    }
+
+    public void giveItems(Player player) {
         PlayerInventory inventory = player.getInventory();
 
         // Define the items:
@@ -68,7 +80,6 @@ public final class XKit extends JavaPlugin implements Listener {
         inventory.setItem(EquipmentSlot.OFF_HAND, shield);
 
         inventory.addItem(food, wool); // notice you can just put however many you want in these
-
     }
 
 }
