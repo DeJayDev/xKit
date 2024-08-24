@@ -1,0 +1,6 @@
+name: xKit
+version: '1.0-SNAPSHOT'
+main: dev.dejay.xKit.XKit
+api-version: '1.21'
+authors: [ DeJayDev ]
+website: https://github.com/dejaydev/xkit
